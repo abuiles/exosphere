@@ -36,15 +36,20 @@ Create your issuing and base account by running
 yarn run anchor:create
 ```
 
-This will output 4 liners like the following:
+This will output an object like the following.
 
 ```
-ISSUING_ACCOUNT_ID=ISSUING-ACCOUNT-ID
-ISSUING_SEED=ISSUING-ACCOUNT-SEED
-BASE_ACCOUNT_ID=BASE-ACCOUNT-ID
-BASE_SEED=BASE-ACCOUNT-SEED
+{
+  "base": {
+    "id": "some-id",
+    "seed": "some-seed"
+  },
+  "issuer": {
+    "id": "some-id",
+    "seed": "some-seed"
+  }
+}
 ```
 
 They keys above will be used to issue new asset or create new accounts
-for your customers. If you save those lines in your `.env` - all
-commands will be executed as if you were that account.
+for your customers. Save that in .env.json will use it as the base accounts for new commands.
