@@ -19,3 +19,19 @@ A friendly layer between humans and Stellar.
 3. Stellar best practices out of the box https://www.stellar.org/developers/guides/issuing-assets.html#best-practices
    1. Requiring or Revoking Authorization
    2. Check Trust Before Paying
+
+
+## Creating a new anchor
+
+> Anchors are entities that people trust to hold their deposits and issue credits into the Stellar network for those deposits.
+
+As an Anchor, you should maintain at least two accounts:
+
+- An issuing account used only for issuing and destroying assets.
+- A base account used to transact with other Stellar accounts. It holds a balance of assets issued by the issuing account.
+
+To create a new anchor run:
+
+```
+yarn run anchor:create --issuer=issueer-account-id --issuer-seed=1235 --base=base-id --base-seed=a-seed
+```
