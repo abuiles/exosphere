@@ -14,5 +14,8 @@
   "bugs": {
     "url": "https://github.com/abuiles/exosphere/issues"
   },
-  "homepage": "https://github.com/abuiles/exosphere#readme"
+  "homepage": "https://github.com/abuiles/exosphere#readme",
+  "dependencies": {
+    "stellar-sdk": "^0.8.0"
+  }
 }
