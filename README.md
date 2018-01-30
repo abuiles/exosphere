@@ -25,13 +25,26 @@ A friendly layer between humans and Stellar.
 
 > Anchors are entities that people trust to hold their deposits and issue credits into the Stellar network for those deposits.
 
-As an Anchor, you should maintain at least two accounts:
+As an Anchor, you should maintain at least two *accounts*:
 
 - An issuing account used only for issuing and destroying assets.
 - A base account used to transact with other Stellar accounts. It holds a balance of assets issued by the issuing account.
 
-To create a new anchor run:
+Create your issuing and base account by running
 
 ```
-yarn run anchor:create --issuer=issueer-account-id --issuer-seed=1235 --base=base-id --base-seed=a-seed
+yarn run anchor:create
 ```
+
+This will output 4 liners like the following:
+
+```
+ISSUING_ACCOUNT_ID=ISSUING-ACCOUNT-ID
+ISSUING_SEED=ISSUING-ACCOUNT-SEED
+BASE_ACCOUNT_ID=BASE-ACCOUNT-ID
+BASE_SEED=BASE-ACCOUNT-SEED
+```
+
+They keys above will be used to issue new asset or create new accounts
+for your customers. If you save those lines in your `.env` - all
+commands will be executed as if you were that account.
