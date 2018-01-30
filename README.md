@@ -9,7 +9,7 @@ A friendly layer between humans and Stellar.
 ## Goals
 
 1. Deploy an anchor to Stellar network
-   1 Create new Anchor
+   1 Create new Anchor: `yarn run anchor:create`
 
 2. Build phone based Federation
    1. Create a new account via sms or phone call
@@ -53,3 +53,19 @@ This will output an object like the following.
 
 They keys above will be used to issue new asset or create new accounts
 for your customers. Save that in .env.json will use it as the base accounts for new commands.
+
+
+## Creating customer accounts
+
+> Based on https://www.stellar.org/developers/guides/anchor/#customer-accounts
+
+We'll use federation and the memo field in transactions to send and
+receive payments on behalf of our customers. In this approach,
+transactions intended for your customers are all made using our base
+account. The memo field of the transaction is used to identify the
+actual customer a payment is intended for.
+
+> Using a single account requires you to do additional bookkeeping, but
+> means you have fewer keys to manage and more control over accounts. If
+> you already have existing banking systems, this is the simplest way to
+> integrate Stellar with them.
