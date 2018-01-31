@@ -11,12 +11,14 @@ A friendly layer between humans and Stellar.
 1. Deploy an anchor to Stellar network
    1 Create new Anchor: `yarn run anchor:create`
 
-2. Build phone based Federation
+2. Create a new asset and seed your anchor account with it.
+
+3. Build phone based Federation
    1. Create a new account via sms or phone call
    2. Issue credits to federated accounts
    3. Allow count to send transactions
 
-3. Stellar best practices out of the box https://www.stellar.org/developers/guides/issuing-assets.html#best-practices
+4. Stellar best practices out of the box https://www.stellar.org/developers/guides/issuing-assets.html#best-practices
    1. Requiring or Revoking Authorization
    2. Check Trust Before Paying
 
@@ -54,6 +56,28 @@ This will output an object like the following.
 They keys above will be used to issue new asset or create new accounts
 for your customers. Save that in .env.json will use it as the base accounts for new commands.
 
+## Issuing assets
+
+Once the issuer and base account have been created, the next step is
+to create an asset and seed the base account with it for operations.
+
+Add the information for your asset in the `.env.json` file:
+
+
+```
+{
+  "asset": {
+    "code": "COP"
+  },
+  "base":....
+}
+```
+
+And then run:
+
+```
+yarn run asset:create
+```
 
 ## Creating customer accounts
 
