@@ -4,7 +4,8 @@
   "description": "A friendly layer between humans and Stellar.",
   "main": "index.js",
   "scripts": {
-    "anchor:create": "node -r babel-register app/commands/create-anchor.js"
+    "anchor:create": "node -r babel-register app/commands/create-anchor.js",
+    "asset:create": "node -r babel-register app/commands/create-asset.js"
   },
   "repository": {
     "type": "git",
