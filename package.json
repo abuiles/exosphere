@@ -6,7 +6,8 @@
   "scripts": {
     "anchor:create": "node -r babel-register app/commands/create-anchor.js",
     "asset:create": "node -r babel-register app/commands/create-asset.js",
-    "operations:pay": "node -r babel-register app/commands/pay.js"
+    "operations:pay": "node -r babel-register app/commands/pay.js",
+    "sep10": "node -r babel-register app/commands/build-challenge.js"
   },
   "repository": {
     "type": "git",
