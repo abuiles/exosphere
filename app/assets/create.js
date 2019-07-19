@@ -13,22 +13,26 @@ StellarSdk.Network.useTestNetwork();
 export default class Create {
   constructor() {
     this.server = new StellarSdk.Server(STELLAR_HOST);
-    const file = fs.readFileSync('/Users/adolfobuiles/code/personal/exosphere/.env.json', { encoding: 'utf-8' });
+    const file = fs.readFileSync('./.env.json', { encoding: 'utf-8' });
 
     this.env = JSON.parse(file)
   }
-  async createTrustline(asset, receiverKeys) {
+
+  async createTrustline(asset, receiverKeys, fee) {
     const server = this.server
     const receiver = await server.loadAccount(receiverKeys.publicKey())
 
     var transaction = new StellarSdk
-        .TransactionBuilder(receiver)
+        .TransactionBuilder(receiver, {
+          fee
+        })
         .addOperation(
           // The `changeTrust` operation creates (or alters) a trustline
           // The `limit` parameter below is optional
           StellarSdk.Operation.changeTrust({
             asset
           }))
+        .setTimeout(30)
         .build();
 
     transaction.sign(receiverKeys)
@@ -49,10 +53,11 @@ export default class Create {
     const env = this.env
     const server = this.server
 
+    const fee = await server.fetchBaseFee()
+
     var issuingKeys = StellarSdk.Keypair.fromSecret(env.issuer.seed)
     var receivingKeys = StellarSdk.Keypair.fromSecret(env.base.seed)
     var usersKeys = StellarSdk.Keypair.fromSecret(env.users.seed)
-    var vendorsKeys = StellarSdk.Keypair.fromSecret(env.vendors.seed)
 
     // Create an object to represent the new asset
     var asset = new StellarSdk.Asset(
@@ -61,25 +66,27 @@ export default class Create {
     );
 
     console.log('creating new asset')
+
     try {
-
-
-      await this.createTrustline(asset, receivingKeys)
-      await this.createTrustline(asset, usersKeys)
-      await this.createTrustline(asset, vendorsKeys)
+      await this.createTrustline(asset, receivingKeys, fee)
+      await this.createTrustline(asset, usersKeys, fee)
 
       // Second, the issuing account actually sends a payment using the asset
       const issuer = await  server.loadAccount(issuingKeys.publicKey())
 
       const transaction = new StellarSdk.
-          TransactionBuilder(issuer)
-          .addOperation(
-            StellarSdk.Operation.payment({
-              destination: receivingKeys.publicKey(),
-              asset: asset,
-              amount: env.asset.amount
+            TransactionBuilder(issuer, {
+              fee
             })
-          ).build()
+            .addOperation(
+              StellarSdk.Operation.payment({
+                destination: receivingKeys.publicKey(),
+                asset: asset,
+                amount: env.asset.amount
+              })
+            )
+            .setTimeout(30)
+            .build()
       console.log(`seeding base account with ${env.asset.amount} ${asset.getCode()}`)
       transaction.sign(issuingKeys)
 

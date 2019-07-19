@@ -16,7 +16,7 @@ export default class Payment {
     this.amount = amount
     this.memo = memo
     this.server = new StellarSdk.Server(STELLAR_HOST);
-    const file = fs.readFileSync('/Users/adolfobuiles/code/personal/exosphere/.env.json', { encoding: 'utf-8' });
+    const file = fs.readFileSync('./.env.json', { encoding: 'utf-8' });
 
     this.env = JSON.parse(file)
   }

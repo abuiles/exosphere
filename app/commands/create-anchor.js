@@ -4,6 +4,6 @@ const creator = new CreateAnchor()
 
 creator.run().then((info) => {
   console.log('--------------------------------------------------------------------------------')
-  console.log(info)
+  console.log(JSON.stringify(info))
   console.log('--------------------------------------------------------------------------------')
 })
